@@ -15,10 +15,16 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
+function MenuElemaniOlustur(/*Kodlar buraya*/isim, fiyat,kategori){
 	/*Kodlar buraya*/
+	const burger ={
+		isim:isim,
+		fiyat:fiyat,
+		kategori:kategori
+	};
+	return burger;
 }
-
+console.log(MenuElemaniOlustur('Cheeseburger', 8, 'Burgerler'));
 
 
 /*  Görev 1b (otomatik test yok): 
@@ -33,6 +39,9 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 
 
 
+console.log(MenuElemaniOlustur("gazoz", 10,"içecek"));
+console.log(MenuElemaniOlustur("pizza", 20,"pizza"));
+console.log(MenuElemaniOlustur("waffle", 5,"tatlı"));
 /* Görev 2: 
 	Özel bir öğle yemeği yiyorsun! Öğretmen ve öğrencilere %25, diğer kişilere %10 indirim var. Aşağıdaki burger nesnesine, indirimi fiyatı otomatik olarak hesaplayan bir metot ekleyin.
 	
@@ -50,8 +59,19 @@ const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
-
+    indirim:function(musteri){
+		if( musteri==="öğretmen" || musteri==="öğrenci" ) {
+			return this.fiyat= 18*0.75;	
+		}
+		else if( musteri==="diğer") {
+			return this.fiyat=18*0.90;
+		}
+	}
+	
 }
+
+burger.indirim("öğretmen");
+console.log(burger);
 
 
 
@@ -72,15 +92,18 @@ const degerlendirmeler = [
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
 
-
-
+console.log("Ahmet",2,"Bu mekan beni fazla etkilemedi. Menüde özel bir şey yok ve çok pahalı. Atmosferi de ben beğenmedim ama başkaları beğenebilir.")
 /*  Görev 4 (ototest yok):  
 	Reyna'nın geribildirimi girilmemiş! Aşağıdakileri uygulayın: (fonksiyona gerek yok) 
 	1. Bu geribildirimi Reyna'nın değerlendirmesine ekleyin - "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım"
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
-
-
+degerlendirmeler.find(k=>{
+	if(k.isim="Reyna"){
+		k.geribildirim="bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım";
+	}
+})
+console.log("  Görev 4__" ,degerlendirmeler)
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,11 +117,19 @@ const degerlendirmeler = [
 */
 
 
-function DegerlendirmeEkle(/*Kodlar buraya */){
+function DegerlendirmeEkle(/*Kodlar buraya */degerlendirmeler,isim,puan,geribildirim){
 	/*Kodlar buraya */
 	
+	const yeniYorum ={
+		isim:isim,
+		puan:puan,
+		geribildirim:geribildirim
+	};
+	let yeniDizi=degerlendirmeler.concat(yeniYorum);
+return yeniDizi;
+	
 }
-
+console.log(DegerlendirmeEkle(degerlendirmeler, 'Hurşut', 2, 'Boktan yemekler!'));
 
 
 /*  Görev 6: 
@@ -112,12 +143,17 @@ function DegerlendirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
+function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/dondurulecekDizi,diziIndex) {
 	/*Kodlar buraya*/
+	let yeniYorum=dondurulecekDizi[diziIndex];
+	let isim=yeniYorum.isim;
+	let puan=yeniYorum.puan;
+	let geribildirim=yeniYorum.geribildirim;
+	return(isim + " isimli kişi " + puan + " puan verdi ve şunları yazdı: " + geribildirim);
 
 }
 
-
+console.log(AnahtardanDegerlendirmeAl(degerlendirmeler,0));
 
 /*  Görev 7:  
 	Diziden en son değerlendirmeyi döndüren adı `SonDegerlendirmeyiAl` olan bir fonksiyon yazın 
@@ -132,11 +168,20 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
+function SonDegerlendirmeyiAl(/*Kodlar buraya*/sonYorum) {
+	
+let yeniDizi=sonYorum.slice(-1);
+let nesneSecimi = yeniDizi[0];
+let isim =nesneSecimi.isim;
+let puan=nesneSecimi.puan;
+let geribildirim=nesneSecimi.geribildirim;
+		 	return(isim + " isimli kişi " + puan + " puan verdi ve şunları yazdı: " + geribildirim);
+
+	
 	/*Kodlar buraya*/
 } 
 
-
+console.log(SonDegerlendirmeyiAl(degerlendirmeler));
 
 /////////////// BONUS  GÖRVLER////////////////////
 
@@ -155,9 +200,9 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 */
 
 function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
+	
     /* Kodlar buraya */
 }
-
 
 /*  BONUS 2:    
 	UzunDegerlendirmeleriAl fonksiyonuna aşağıdakileri uygulayın:
